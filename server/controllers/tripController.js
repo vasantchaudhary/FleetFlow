@@ -1,43 +1,44 @@
-// Import vehicles and drivers
-const vehicleController = require("./vehicleController");
-const driverController = require("./driverController");
+// In-memory data (same as other controllers)
+let vehicles = [
+  { id: 1, model: "Van-01", capacity: 500, status: "Available" },
+  { id: 2, model: "Truck-02", capacity: 2000, status: "Available" }
+];
 
-// Temporary in-memory trips
+let drivers = [
+  { id: 1, name: "Alex", licenseValid: true, status: "Available" },
+  { id: 2, name: "John", licenseValid: true, status: "Available" }
+];
+
 let trips = [];
 
-// We need access to vehicle & driver arrays
-let vehicles = require("./vehicleController").vehicles;
-let drivers = require("./driverController").drivers;
-
-// CREATE TRIP
+// CREATE trip
 exports.createTrip = (req, res) => {
   const { id, vehicleId, driverId, cargoWeight, route } = req.body;
 
   const vehicle = vehicles.find(v => v.id === vehicleId);
-  const driver = drivers.find(d => d.id === driverId);
-
   if (!vehicle) {
     return res.status(404).json({ message: "Vehicle not found" });
   }
 
+  const driver = drivers.find(d => d.id === driverId);
   if (!driver) {
     return res.status(404).json({ message: "Driver not found" });
   }
 
-  if (vehicle.status !== "Available") {
-    return res.status(400).json({ message: "Vehicle not available" });
-  }
-
-  if (driver.status !== "Available") {
-    return res.status(400).json({ message: "Driver not available" });
-  }
-
-  // Cargo validation
   if (cargoWeight > vehicle.capacity) {
     return res.status(400).json({
       message: "Cargo exceeds vehicle capacity"
     });
   }
+
+  if (!driver.licenseValid) {
+    return res.status(400).json({
+      message: "Driver license invalid"
+    });
+  }
+
+  vehicle.status = "On Trip";
+  driver.status = "On Trip";
 
   const newTrip = {
     id,
@@ -49,10 +50,6 @@ exports.createTrip = (req, res) => {
   };
 
   trips.push(newTrip);
-
-  // Auto update status
-  vehicle.status = "On Trip";
-  driver.status = "On Trip";
 
   res.json({
     message: "Trip created successfully",

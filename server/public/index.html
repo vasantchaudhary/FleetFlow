@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FleetFlow Dashboard</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 40px;
+      background: #f4f6f8;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    button {
+      padding: 10px 15px;
+      margin: 5px;
+      cursor: pointer;
+      border: none;
+      background: #3498db;
+      color: white;
+      border-radius: 4px;
+    }
+    input {
+      padding: 8px;
+      margin: 5px;
+    }
+    .box {
+      background: white;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    pre {
+      background: #eee;
+      padding: 10px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🚛 FleetFlow Dashboard</h1>
+
+<div class="box">
+  <button onclick="getVehicles()">View Vehicles</button>
+  <button onclick="getDrivers()">View Drivers</button>
+</div>
+
+<div class="box">
+  <h3>Create Trip</h3>
+  <input id="vehicleId" placeholder="Vehicle ID">
+  <input id="driverId" placeholder="Driver ID">
+  <input id="cargoWeight" placeholder="Cargo Weight">
+  <input id="route" placeholder="Route">
+  <button onclick="createTrip()">Create Trip</button>
+</div>
+
+<div class="box">
+  <h3>Response</h3>
+  <pre id="output"></pre>
+</div>
+
+<script>
+  async function getVehicles() {
+    const res = await fetch('/vehicles');
+    const data = await res.json();
+    document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+  }
+
+  async function getDrivers() {
+    const res = await fetch('/drivers');
+    const data = await res.json();
+    document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+  }
+
+  async function createTrip() {
+    const vehicleId = parseInt(document.getElementById('vehicleId').value);
+    const driverId = parseInt(document.getElementById('driverId').value);
+    const cargoWeight = parseInt(document.getElementById('cargoWeight').value);
+    const route = document.getElementById('route').value;
+
+    const res = await fetch('/trips', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: Date.now(), vehicleId, driverId, cargoWeight, route })
+    });
+
+    const data = await res.json();
+    document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+  }
+</script>
+
+</body>
+</html>

@@ -1,7 +1,7 @@
 // In-memory database
-exports.vehicles = [
+let vehicles = [
   { id: 1, model: "Van-01", capacity: 500, status: "Available" },
-  { id: 2, model: "Truck-02", capacity: 2000, status: "On Trip" }
+  { id: 2, model: "Truck-02", capacity: 2000, status: "Available" }
 ];
 
 // GET all vehicles
@@ -12,7 +12,6 @@ exports.getVehicles = (req, res) => {
 // POST new vehicle
 exports.addVehicle = (req, res) => {
   const newVehicle = req.body;
-
   vehicles.push(newVehicle);
 
   res.json({
