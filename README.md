@@ -1,6 +1,10 @@
 # FleetFlow
-```
+
 # 🚛 FleetFlow – Modular Fleet & Logistics Management System
+
+## 📸 Demo Preview
+
+![FleetFlow Dashboard](screenshot.png)
 
 ## 📌 Overview
 
@@ -138,4 +142,3 @@ POST   /trips
 This project demonstrates the core backend architecture and business logic required for a fleet management system, including validation rules and automated workflow handling.
 
 It is built as a scalable foundation for future expansion into a full production-ready logistics platform.
-```
