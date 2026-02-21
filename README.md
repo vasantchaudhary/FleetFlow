@@ -1,6 +1,6 @@
 # FleetFlow
 
-# 🚛 FleetFlow – Modular Fleet & Logistics Management System
+🚛 FleetFlow – Modular Fleet & Logistics Management System
 
 ## 📸 Demo Preview
 
@@ -75,23 +75,20 @@ The system follows a clean MVC architecture using Node.js and Express.js.
 
 ## 📂 Project Structure
 
-server/
- ├── controllers/
- │     ├── vehicleController.js
- │     ├── driverController.js
- │     ├── tripController.js
- │
- ├── routes/
- │     ├── vehicleRoutes.js
- │     ├── driverRoutes.js
- │     ├── tripRoutes.js
- │
- ├── public/
- │     └── index.html
- │
- ├── index.js
- ├── package.json
- └── README.md
+- server/
+  - controllers/
+    - vehicleController.js
+    - driverController.js
+    - tripController.js
+  - routes/
+    - vehicleRoutes.js
+    - driverRoutes.js
+    - tripRoutes.js
+  - public/
+    - index.html
+  - index.js
+  - package.json
+- README.md
 
 ---
 
